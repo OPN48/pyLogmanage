@@ -15,11 +15,12 @@ def getFileSize(filePath):
     fsize = fsize / float(1024 * 1024)
     return round(fsize, 2)
 
+# 获取当前文件夹作为日志文件夹
+logFilePath=os.getcwd()
 # 初始化服务器报文 【x.x.x.x】:
 text='【%s】：\n\n' % getInternetIP()
 
-nowPath=os.getcwd()
-logFileList=list(filter(None, [f if os.path.splitext(f)[1] == fileType else '' for f in os.listdir(nowPath)]))
+logFileList=list(filter(None, [f if os.path.splitext(f)[1] == fileType else '' for f in os.listdir(logFilePath)]))
 
 # 昨天日期文件名
 today=datetime.date.today()
@@ -32,9 +33,12 @@ for f in logFileList:
     text+=str(f)+' '+str(getFileSize('./'+f))+'MB \n\n'
 
 # 压缩日志
-os.system('tar -czvf ./%s %s' % (yesterdayFileName, ' '.join(logFileList)))
-tarSize=str(getFileSize('./'+yesterdayFileName))
-text+=yesterdayFileName+' '+tarSize+'MB \n\n'
+try:
+    os.system('tar -czvf ./%s %s' % (yesterdayFileName, ' '.join(logFileList)))
+    tarSize=str(getFileSize('./'+yesterdayFileName))
+    text+=yesterdayFileName+' '+tarSize+'MB \n\n'
+except:
+    print('tar error, please check you fileType config')
 
 # 删除所有log,重新创建文件
 os.system('rm -rf ./*%s && touch %s'%(fileType,' '.join(logFileList)))
@@ -52,6 +56,7 @@ if isNginx:
     os.system('nginx -s reopen')
 # 告知UWSGI重写日志
 if isUwsgi:
+    uwsgiLogrotate = logFilePath + 'touchforlog'
     os.system('touch ' + uwsgiLogrotate)
 
 # 发送消息给钉钉
