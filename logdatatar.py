@@ -1,26 +1,9 @@
-import datetime,os,json,requests
+import datetime,json
 from logTools.config import *
+from logTools.tools import getInternetIP, getFileSize
 
-# 获取本机外网IP
-def getInternetIP(headers=headers):
-    r=requests.get(soipUrl,headers=headers)
-    beforeStr='user_ip="'
-    endStr='";'
-    s = r.text.find(beforeStr)
-    e = r.text.find(endStr,s)
-    return r.text[s+len(beforeStr):e]
-# 获取文件大小
-def getFileSize(filePath):
-    fsize = os.path.getsize(filePath)
-    fsize = fsize / float(1024 * 1024)
-    return round(fsize, 2)
-
-# 获取当前文件夹作为日志文件夹
-logFilePath=os.getcwd()
 # 初始化服务器报文 【x.x.x.x】:
 text='【%s】：\n\n' % getInternetIP()
-
-logFileList=list(filter(None, [f if os.path.splitext(f)[1] == fileType else '' for f in os.listdir(logFilePath)]))
 
 # 昨天日期文件名
 today=datetime.date.today()
