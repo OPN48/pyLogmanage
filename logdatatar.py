@@ -1,6 +1,6 @@
 import datetime,json
 from logTools.config import *
-from logTools.tools import getInternetIP, getFileSize
+from logTools.tools import getInternetIP, getFileSize, sendTheMsgToDingtalk
 
 # 初始化服务器报文 【x.x.x.x】:
 text='【%s】：\n\n' % getInternetIP()
@@ -43,7 +43,5 @@ if isUwsgi:
     os.system('touch ' + uwsgiLogrotate)
 
 # 发送消息给钉钉
-if isDingdingMsg:
-    data={'msgtype':'markdown','markdown':{'title': dingdingKeyword, 'text': text}}
-    s = json.dumps(data)
-    requests.post(dingdingUrl, data=s, headers=headers)
+if isDingtalkMsg:
+    sendTheMsgToDingtalk(text=text)
