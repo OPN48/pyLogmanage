@@ -16,7 +16,7 @@ def lineLookup(s, frontStr, behindStr):
     return result
 
 # 获取本机外网IP
-def getInternetIP(headers):
+def getInternetIP():
     r=requests.get(soipUrl,headers=headers)
     return lineLookup(r.text,'user_ip="','";')
 
