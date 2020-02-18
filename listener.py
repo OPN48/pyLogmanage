@@ -3,9 +3,9 @@ from logTools.tools import logsMsg, sendTheMsgToDingtalk, getInternetIP
 
 text='【%s】' % getInternetIP()
 if lastLinesNum:
-    text='The Last '+str(lastLinesNum)+' lines log:\n\n'
+    text+='The Last '+str(lastLinesNum)+' lines log:\n\n'
 else:
-    text='The all logs:\n\n'
+    text+='The all logs:\n\n'
 defauleText=text
 # 日志分析
 tempDic = {}
@@ -31,7 +31,7 @@ for f in logFileList:
                 tempDic[stepNum]=[key]
 
 for count in tempDic:
-    text+='The APIs more than '+str(count)+' requests per minute:\n\n'
+    text+='\n\nThe APIs more than '+str(count)+' requests per minute:\n\n'
     tempList=[]
     for s in tempDic[count]:
         api=s.split(' ')[-1]
@@ -42,7 +42,6 @@ for count in tempDic:
 
 if defauleText == text:
     text+='Had not APIs more than '+str(oneMinMaxlog)+' requests per minute'
-    
-# print(text)
+
 if isDingtalkMsg:
     sendTheMsgToDingtalk(text=text)
