@@ -31,7 +31,7 @@ fileType = '.log'
 logFilePath = os.getcwd()
 logFileList = list(filter(None, [f if os.path.splitext(f)[1] == fileType else '' for f in os.listdir(logFilePath)]))
 
-lastLinesNum=3000
+lastLinesNum=1000
 oneMinMaxlog=3
 
 # # # # # # # # # 其他基础配置# # # # # # # # #
