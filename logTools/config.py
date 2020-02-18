@@ -4,6 +4,13 @@ import os
 isDingdingMsg=True
 dingdingUrl='https://oapi.dingtalk.com/robot/send?access_token=0000000000000'
 dingdingKeyword='logdatatar'
+# 检测并安装requests 为钉钉通知提供服务
+if isDingdingMsg:
+    try:
+        import requests
+    except:
+        os.system('pip3 install requests')
+        import requests
 
 # 使用nginx配置的服务器可使用
 isNginx=True

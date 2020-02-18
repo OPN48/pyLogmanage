@@ -1,4 +1,4 @@
-import datetime,json,requests
+import datetime,json
 from logTools.config import *
 from logTools.tools import getInternetIP, getFileSize
 
