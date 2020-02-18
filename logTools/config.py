@@ -1,7 +1,14 @@
 import os
 # 钉钉机器人配置
 isDingtalkMsg = True
-dingdingUrl = 'https://oapi.dingtalk.com/robot/send?access_token=0000000000000'
+try:
+    # 文件读取形式，方便重复拉取
+    f=open('./dingtalkUrl','r')
+    for line in f:
+        if 'dingdingUrl' in line:
+            dingdingUrl=line.split(' ')[1]
+except:
+    dingdingUrl = 'https://oapi.dingtalk.com/robot/send?access_token=0000000000000'
 dingdingKeyword = 'logdatatar'  # 在钉钉robot里面设置自定义关键词，保证消息可以到达钉钉
 
 # 检测并安装requests 为钉钉通知提供服务
@@ -23,7 +30,7 @@ fileType = '.log'
 logFilePath = os.getcwd()
 logFileList = list(filter(None, [f if os.path.splitext(f)[1] == fileType else '' for f in os.listdir(logFilePath)]))
 
-lastLinesNum=1000
+lastLinesNum=3000
 oneMinMaxlog=3
 
 # # # # # # # # # 其他基础配置# # # # # # # # #
