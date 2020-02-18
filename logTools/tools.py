@@ -1,6 +1,17 @@
 import re,json
 from logTools.config import *
 
+def getSysArgv(defaultDic={'key1':'','key2':'','key3':''}):
+    beginNum = 1
+    for defaultStr in defaultDic:
+        try:
+            import sys
+            defaultDic[defaultStr] = sys.argv[beginNum]
+            beginNum += 1
+        except:
+            break
+    return defaultDic
+
 # 获取文件大小
 def getFileSize(filePath):
     fsize = os.path.getsize(filePath)

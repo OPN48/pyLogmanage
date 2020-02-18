@@ -6,7 +6,7 @@ if lastLinesNum:
     text+='The Last '+str(lastLinesNum)+' lines log:\n\n'
 else:
     text+='The all logs:\n\n'
-defauleText=text
+defaultText=text
 # 日志分析
 tempDic = {}
 for f in logFileList:
@@ -40,7 +40,7 @@ for count in tempDic:
     text += '\n\n'.join(tempList) +'\n\n'
     tempList = []
 
-if defauleText == text:
+if defaultText == text:
     text+='Had not APIs more than '+str(oneMinMaxlog)+' requests per minute'
 
 if isDingtalkMsg:
