@@ -5,11 +5,12 @@ try:
     # 文件读取形式，方便重复拉取
     f=open('./dingtalkUrl','r')
     for line in f:
-        if 'dingdingUrl' in line:
-            dingdingUrl=line.split(' ')[1]
+        if 'dingtalkUrl' in line:
+            dingtalkUrl=line.split(' ')[1]
 except:
-    dingdingUrl = 'https://oapi.dingtalk.com/robot/send?access_token=0000000000000'
-dingdingKeyword = 'logdatatar'  # 在钉钉robot里面设置自定义关键词，保证消息可以到达钉钉
+    dingtalkUrl = 'https://oapi.dingtalk.com/robot/send?access_token=0000000000000'
+
+dingtalkKeyword = 'logdatatar'  # 在钉钉robot里面设置自定义关键词，保证消息可以到达钉钉
 
 # 检测并安装requests 为钉钉通知提供服务
 if isDingtalkMsg:
