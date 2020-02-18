@@ -31,7 +31,7 @@ for f in logFileList:
                 tempDic[stepNum]=[key]
 
 for count in tempDic:
-    text+='\n\nThe APIs more than '+str(count)+' requests per minute:\n\n'
+    text+='【more than '+str(count)+'/min】:\n\n'
     tempList=[]
     for s in tempDic[count]:
         api=s.split(' ')[-1]
