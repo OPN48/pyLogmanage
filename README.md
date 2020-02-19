@@ -5,7 +5,12 @@ A python lite log manage open repository, rotate your log files and send the msg
 
 you can use the git command clone that repository in to your logs path:
 ```
-$git clone --recursive https://github.com/OPN48/pyLogmanage.git ./{your logs path}
+$cd {your log path}
+$git clone --recursive https://github.com/OPN48/pyLogmanage.git
+$yes | mv ./pyLogmanage/* ./
+$yes | mv ./pyLogmanage/.git ./.git
+$yes | mv ./pyLogmanage/.gitignore ./.gitignore
+$rm -rf ./pyLogmanage
 ```
 
 2.setting dingtalk url:
