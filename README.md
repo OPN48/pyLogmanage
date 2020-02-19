@@ -3,25 +3,9 @@ A python lite log manage open repository, rotate your log files and send the msg
 
 1.how to install:
 
-you can use vi touch a restart.sh in you logs path:
+you can use the git command clone that repository in to your logs path:
 ```
-$ vi restart.sh
-```
-and input:
-```
-rm -rf ./logTools
-sleep 1
-git clone --recursive https://github.com/OPN48/pyLogmanage.git
-sleep 1
-yes | mv ./pyLogmanage/* ./
-sleep 1
-rm -rf ./pyLogmanage
-``` 
-
-after that, don't forget use chmod  777 to give it permission and run
-```
-$ chmod 777 ./restart.sh
-$ ./restart.sh
+$git clone --recursive https://github.com/OPN48/pyLogmanage.git ./{your logs path}
 ```
 
 2.setting dingtalk url:
