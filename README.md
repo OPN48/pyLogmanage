@@ -7,10 +7,15 @@ you can use the git command clone that repository in to your logs path:
 ```
 $cd {your log path}
 $git clone --recursive https://github.com/OPN48/pyLogmanage.git
-$yes | mv ./pyLogmanage/* ./
-$yes | mv ./pyLogmanage/.git ./.git
-$yes | mv ./pyLogmanage/.gitignore ./.gitignore
+$mv ./pyLogmanage/* ./ 
+$mv ./pyLogmanage/.git ./.git
+$mv ./pyLogmanage/.gitignore ./.gitignore
 $rm -rf ./pyLogmanage
+```
+If you don't want clone in your logs path, and than you would be change the logFilePath and the logFileList values in  ./logTools/config.py
+```buildoutcfg
+logFilePath = os.getcwd()
+logFileList = list(filter(None, [f if os.path.splitext(f)[1] == fileType else '' for f in os.listdir(logFilePath)]))
 ```
 
 2.setting dingtalk url:
@@ -42,7 +47,7 @@ cd /home/log && python3 logdatatar.py
 ```
 **uWSGI setting:**
 
-open your uWSGI settings file uwsgi.ini , and add:
+open your uWSGI settings file uwsgi.ini , and add this:
 ```
 [uwsgi]
 master = true
