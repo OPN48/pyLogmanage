@@ -31,7 +31,7 @@ for f in logFileList:
                 tempDic[stepNum]=[key]
 
 for count in tempDic:
-    text+='【more than '+str(count)+'/min】:\n\n'
+    text+='【more than '+str(count)+'/s】:\n\n'
     tempList=[]
     for s in tempDic[count]:
         api=s.split(' ')[-1]
@@ -41,7 +41,7 @@ for count in tempDic:
     tempList = []
 
 if defaultText == text:
-    text+='Had not APIs more than '+str(oneMinMaxlog)+' requests per minute'
+    text+='Had not APIs more than '+str(oneMinMaxlog)+' requests per second'
 
 if isDingtalkMsg:
     sendTheMsgToDingtalk(text=text)
