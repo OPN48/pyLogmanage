@@ -41,7 +41,7 @@ class logsMsg():
         self.logString=logString
         self.ipList=self.getIpInList()
         self.api, self.requestTpye=self.getOrPostApi()
-        self.timeStr=self.getTimeStr()
+        self.datetimeStr, self.datetimeDic=self.getTimeStr()
     def getIpInList(self):
         iplist=re.findall(r"\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b", self.logString)
         if iplist:
@@ -60,5 +60,31 @@ class logsMsg():
             requestTpye,api ='canNotFoundGETorPOST',''
         return api,requestTpye
     def getTimeStr(self):
-        # 不严谨时间提取法
-        return lineLookup(self.logString,' [','] ')
+        monthDic={'Jan': '01', 'Feb': '02', 'Mar': '03', 'Apr': '04', 'May': '05', 'Jun': '06', 'Jul': '07', 'Aug': '08', 'Sep': '09', 'Oct': '10', 'Nov': '11', 'Dec': '12'}
+        replaceStr='/-:'
+        logStr=str(self.logString)
+        for m in monthDic:
+            if m in logStr:
+                logStr=logStr.replace(m,monthDic[m])
+        patternList=[
+            # Nginx error log: 2020/02/21 00:20:28 [error]
+            ('\d{4}[-/]\d{2}[-/]\d{2}\s\d{1,2}:\d{1,2}:\d{1,2}',('year','month','day','hour','minute','second')),
+            # Nginx access log:[21/Feb/2020:16:45:28 +0800] 210
+            ('\d{2}[-/]\d{2}[-/]\d{4}:\d{1,2}:\d{1,2}:\d{1,2}',('day','month','year','hour','minute','second')),
+            # uWSGI log:Wed Feb 19 06:13:47 2020
+            ('\d{2}\s\d{2}\s\d{1,2}:\d{1,2}:\d{1,2}\s\d{4}',('month','day','hour','minute','second','year'))
+        ]
+        for pattern in patternList:
+            timeList = re.findall(pattern[0], logStr)
+            if timeList:
+                datetimeStr = timeList[0]
+                for s in replaceStr:
+                    datetimeStr=datetimeStr.replace(s,' ')
+                # print(pattern[1],datetimeStr.split(' '))
+                datetimeDic=dict(zip(pattern[1], datetimeStr.split(' ')))
+                datetimeStr=' '.join([datetimeDic[key] for key in ('year','month','day','hour','minute','second')])
+                break
+            else:
+                datetimeStr='canNotFindTime'
+                datetimeDic={'error':'canNotFindTime'}
+        return datetimeStr,datetimeDic

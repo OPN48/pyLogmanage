@@ -16,7 +16,7 @@ for f in logFileList:
     for line in l:
         log=logsMsg(line)
         projectNmae=f.split('_')[0]
-        timeIpApiStr=str(log.timeStr+' '+log.ipList[0]+' '+projectNmae+log.api)
+        timeIpApiStr=str(log.datetimeStr + ' ' + log.ipList[0] + ' ' + projectNmae + log.api)
         if timeIpApiStr in dic:
             dic[timeIpApiStr] += 1
         else:
