@@ -39,7 +39,7 @@ if isNginx:
     os.system('nginx -s reopen')
 # 告知UWSGI重写日志
 if isUwsgi:
-    uwsgiLogrotate = logFilePath + 'touchforlog'
+    uwsgiLogrotate = logFilePath + '/touchforlog'
     os.system('touch ' + uwsgiLogrotate)
 
 # 发送消息给钉钉
