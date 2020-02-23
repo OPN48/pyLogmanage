@@ -15,10 +15,15 @@ for f in logFileList:
     dic = {}
     for line in l:
         log=logsMsg(line)
-        projectNmae=f.split('_')[0]
-        timeIpApiStr=str(log.datetimeStr + ' ' + log.ipList[0] + ' ' + projectNmae + log.api)
+        projectName=f.split('_')[0]
+        timeIpApiStr=str(log.datetimeStr + ' ' + log.ipList[0] + ' ' + projectName + log.api)
+
         if timeIpApiStr in dic:
-            dic[timeIpApiStr] += 1
+            # 识别不到时间、IP、api时不加一
+            if timeIpApiStr.replace(' ','')!=projectName:
+                dic[timeIpApiStr] += 1
+            else:
+                pass
         else:
             dic[timeIpApiStr]=1
     logFile.close()
