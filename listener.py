@@ -19,8 +19,8 @@ for f in logFileList:
         timeIpApiStr=str(log.datetimeStr + ' ' + log.ipList[0] + ' ' + projectName + log.api)
 
         if timeIpApiStr in dic:
-            # 识别不到时间、IP、api时不加一
-            if timeIpApiStr.replace(' ','')!=projectName:
+            # 识别不到api时不加一
+            if log.api!='':
                 dic[timeIpApiStr] += 1
             else:
                 pass
