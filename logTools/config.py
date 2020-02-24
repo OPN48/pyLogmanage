@@ -24,6 +24,7 @@ isNginx = True  # 使用nginx配置的服务器可使用
 isUwsgi = True   # 使用uwsgi配置的服务器可使用  需要在uwsgi.ini内配置master = true和touch-logreopen = /{log文件夹}}/touchforlog
 
 deleteDays = 180  # 《网络安全法第二十一条》第三款 采取监测、记录网络运行状态、网络安全事件的技术措施，并按照规定留存相关的网络日志不少于六个月
+warningFileSize = 500 # 单位 MB
 
 # 日志文件后缀名
 fileType = '.log'
