@@ -13,7 +13,10 @@ deleteFileName= 'log-' + str(today - datetime.timedelta(days=deleteDays))+'.tar.
 
 # 获取文件名及文件大小
 for f in logFileList:
-    text+=str(f)+' '+str(getFileSize('./'+f))+'MB \n\n'
+    fileSize=getFileSize('./'+f)
+    if fileSize >= warningFileSize:
+        text+='【文件过大】'
+    text+=str(f)+' '+str(fileSize)+'MB \n\n'
 
 # 压缩日志
 try:
