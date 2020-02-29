@@ -1,16 +1,28 @@
 import re,json
 from logTools.config import *
 
-def getSysArgv(defaultDic={'key1':'','key2':'','key3':''}):
-    beginNum = 1
-    for defaultStr in defaultDic:
-        try:
-            import sys
-            defaultDic[defaultStr] = sys.argv[beginNum]
-            beginNum += 1
-        except:
-            break
-    return defaultDic
+def getSysArgv(keyReplace, safeKeys):
+    inputDic={}
+    import sys
+    l=sys.argv
+    if l[1:]==[] or '-h'==l[1] or '-help'==l[1]:
+        pass
+    else:
+        for item in l:
+            if '-'==item[0]:
+                num=l.index(item)
+                if num+1<len(l):
+                    if '-'!=l[num+1][0]:
+                        inputDic[item[1:]]=l[num+1]
+    outputDic={}
+    for key in inputDic:
+        if key in keyReplace:
+            outputDic[keyReplace[key]]=inputDic[key]
+        if key in safeKeys:
+            outputDic[key]=inputDic[key]
+    return outputDic
+
+
 
 # 获取文件大小
 def getFileSize(filePath):

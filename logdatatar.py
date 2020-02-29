@@ -1,4 +1,4 @@
-import datetime,json
+import datetime
 from logTools.config import *
 from logTools.tools import getInternetIP, getFileSize, sendTheMsgToDingtalk
 

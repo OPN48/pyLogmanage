@@ -28,8 +28,8 @@ for f in logFileList:
             dic[timeIpApiStr]=1
     logFile.close()
     for key in dic:
-        if dic[key] >= oneMinMaxlog:
-            stepNum=(dic[key]//oneMinMaxlog)*oneMinMaxlog
+        if dic[key] >= oneSecondMaxlog:
+            stepNum= (dic[key] // oneSecondMaxlog) * oneSecondMaxlog
             if stepNum in tempDic:
                 tempDic[stepNum].append(key)
             else:
@@ -46,7 +46,7 @@ for count in tempDic:
     tempList = []
 
 if defaultText == text:
-    text+='Had not APIs more than '+str(oneMinMaxlog)+' requests per second'
+    text += 'Had not APIs more than ' + str(oneSecondMaxlog) + ' requests per second'
 
 if isDingtalkMsg:
     sendTheMsgToDingtalk(text=text)
