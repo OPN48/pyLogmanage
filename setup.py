@@ -1,4 +1,4 @@
-from logTools.config import modelDic, configFileName, isDingtalkMsg, dingtalkUrl
+from logTools.config import modelDic, configFileName, isDingtalkMsg, durl
 from logTools.tools import getSysArgv
 
 safeKeys=modelDic.keys()

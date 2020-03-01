@@ -16,7 +16,7 @@ for f in logFileList:
     for line in l:
         log=logsMsg(line)
         projectName=f.split('_')[0]
-        timeIpApiStr=str(log.datetimeStr + ' ' + log.ipList[0] + ' ' + projectName + log.api)
+        timeIpApiStr=str(log.datetimeStr.replace(' ','') + '_' + log.ipList[0] + '_' + projectName + log.api)
 
         if timeIpApiStr in dic:
             # 识别不到api时不加一
@@ -39,7 +39,7 @@ for count in tempDic:
     text+='【more than '+str(count)+'/s】:\n\n'
     tempList=[]
     for s in tempDic[count]:
-        api=s.split(' ')[-1]
+        api=s.split('_')[-1]
         if api not in tempList:
             tempList.append(api)
     text += '\n\n'.join(tempList) +'\n\n'

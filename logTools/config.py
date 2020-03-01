@@ -36,9 +36,9 @@ def getConfigVaule(key,configDic=configDic):
         return output
 
 isDingtalkMsg = getConfigVaule('dingtalk')
-dingtalkUrl = getConfigVaule('durl')
-dingtalkKeyword = getConfigVaule('dkeyword') # 在钉钉robot里面设置自定义关键词，保证消息可以到达钉钉
-warningFileSize = float(getConfigVaule('warnsize'))
+durl = getConfigVaule('durl')
+dkeyword = getConfigVaule('dkeyword') # 在钉钉robot里面设置自定义关键词，保证消息可以到达钉钉
+warnsize = float(getConfigVaule('warnsize'))
 deleteDays = int(getConfigVaule('days'))
 isNginx = getConfigVaule('nginx')  # 使用nginx配置的服务器可使用
 isUwsgi = getConfigVaule('uwsgi')  #
@@ -58,7 +58,7 @@ if isDingtalkMsg:
 logFilePath = os.getcwd()
 logFileList = list(filter(None, [f if os.path.splitext(f)[1] == fileType else '' for f in os.listdir(logFilePath)]))
 
-# # # # # # # # # 其他基础配置# # # # # # # # #
+# # # # # # # # # 其他基础配置 # # # # # # # # #
 # other basic config
 headers={'Content-Type': 'application/json'}
 soipUrl = 'http://txt.go.sohu.com/ip/soip'  # 搜狐接口获取本服务器外网IP
