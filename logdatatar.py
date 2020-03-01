@@ -14,7 +14,7 @@ deleteFileName= 'log-' + str(today - datetime.timedelta(days=deleteDays))+'.tar.
 # 获取文件名及文件大小
 for f in logFileList:
     fileSize=getFileSize('./'+f)
-    if fileSize >= warningFileSize:
+    if fileSize >= warnsize:
         text+='【文件过大】'
     text+=str(f)+' '+str(fileSize)+'MB \n\n'
 

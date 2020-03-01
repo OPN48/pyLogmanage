@@ -5,7 +5,7 @@ modelDic={
     'durl':('url','配置钉钉机器人url','https://oapi.dingtalk.com/'),
     'dingtalk':('d','钉钉通知开关','TRUE'),
     'dkeyword':('k','配置钉钉自定义关键词','logdatatar'),
-    'warnsize':('w', '配置单日志文件大小，单位MB','500'),
+    'warnsize':('w', '配置单日志文件大小告警值，单位MB','500'),
     # 《网络安全法第二十一条》第三款 采取监测、记录网络运行状态、网络安全事件的技术措施，并按照规定留存相关的网络日志不少于六个月
     'days':('day','日志删除天数','180'),
     'nginx':('n','使用nginx配置的服务器可使用','TRUE'),
@@ -36,9 +36,9 @@ def getConfigVaule(key,configDic=configDic):
         return output
 
 isDingtalkMsg = getConfigVaule('dingtalk')
-dingtalkUrl = getConfigVaule('durl')
-dingtalkKeyword = getConfigVaule('dkeyword') # 在钉钉robot里面设置自定义关键词，保证消息可以到达钉钉
-warningFileSize = float(getConfigVaule('warnsize'))
+durl = getConfigVaule('durl')
+dkeyword = getConfigVaule('dkeyword') # 在钉钉robot里面设置自定义关键词，保证消息可以到达钉钉
+warnsize = float(getConfigVaule('warnsize'))
 deleteDays = int(getConfigVaule('days'))
 isNginx = getConfigVaule('nginx')  # 使用nginx配置的服务器可使用
 isUwsgi = getConfigVaule('uwsgi')  #
@@ -58,7 +58,7 @@ if isDingtalkMsg:
 logFilePath = os.getcwd()
 logFileList = list(filter(None, [f if os.path.splitext(f)[1] == fileType else '' for f in os.listdir(logFilePath)]))
 
-# # # # # # # # # 其他基础配置# # # # # # # # #
+# # # # # # # # # 其他基础配置 # # # # # # # # #
 # other basic config
 headers={'Content-Type': 'application/json'}
 soipUrl = 'http://txt.go.sohu.com/ip/soip'  # 搜狐接口获取本服务器外网IP
