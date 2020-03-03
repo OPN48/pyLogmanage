@@ -3,7 +3,7 @@ A python lite log manage open repository, rotate your log files and send the msg
 
 1.how to install:
 
-you can use the git command clone that repository in to your logs path:
+you can use the git command clone this repository in to your logs path:
 ```
 $cd {your log path}
 $git clone --recursive https://github.com/OPN48/pyLogmanage.git
