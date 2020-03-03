@@ -28,8 +28,9 @@ for f in logFileList:
             dic[timeIpApiStr]=1
     logFile.close()
     for key in dic:
-        if dic[key] >= oneSecondMaxlog:
-            stepNum= (dic[key] // oneSecondMaxlog) * oneSecondMaxlog
+        count=dic[key]
+        if count >= oneSecondMaxlog:
+            stepNum= (count // oneSecondMaxlog) * oneSecondMaxlog
             if stepNum in tempDic:
                 tempDic[stepNum].append(key)
             else:

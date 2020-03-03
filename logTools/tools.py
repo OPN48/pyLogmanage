@@ -80,12 +80,14 @@ class logsMsg():
                 logStr=logStr.replace(m,monthDic[m])
         patternList=[
             # Nginx error log: 2020/02/21 00:20:28 [error]
-            ('\d{4}[-/]\d{2}[-/]\d{2}\s\d{1,2}:\d{1,2}:\d{1,2}',('year','month','day','hour','minute','second')),
+            ('\d{4}[-/]\d{1,2}[-/]\d{1,2}\s\d{1,2}:\d{1,2}:\d{1,2}',('year','month','day','hour','minute','second')),
             # Nginx access log:[21/Feb/2020:16:45:28 +0800] 210
-            ('\d{2}[-/]\d{2}[-/]\d{4}:\d{1,2}:\d{1,2}:\d{1,2}',('day','month','year','hour','minute','second')),
-            # uWSGI log:Wed Feb 19 06:13:47 2020
-            ('\d{2}\s\d{2}\s\d{1,2}:\d{1,2}:\d{1,2}\s\d{4}',('month','day','hour','minute','second','year'))
+            ('\d{1,2}[-/]\d{1,2}[-/]\d{4}:\d{1,2}:\d{1,2}:\d{1,2}',('day','month','year','hour','minute','second')),
+            # uWSGI log:Wed Feb 19 06:13:47 2020 or Wed Feb  9 06:13:47 2020
+            ('\d{1,2}\s+\d{1,2}\s\d{1,2}:\d{1,2}:\d{1,2}\s\d{4}',('month','day','hour','minute','second','year'))
         ]
+        datetimeStr = 'canNotFindTime'
+        datetimeDic = {'error': 'canNotFindTime'}
         for pattern in patternList:
             timeList = re.findall(pattern[0], logStr)
             if timeList:
@@ -96,7 +98,4 @@ class logsMsg():
                 datetimeDic=dict(zip(pattern[1], datetimeStr.split(' ')))
                 datetimeStr=' '.join([datetimeDic[key] for key in ('year','month','day','hour','minute','second')])
                 break
-            else:
-                datetimeStr='canNotFindTime'
-                datetimeDic={'error':'canNotFindTime'}
         return datetimeStr,datetimeDic
