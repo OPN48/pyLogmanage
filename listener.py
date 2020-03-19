@@ -1,5 +1,5 @@
 from logTools.config import *
-from logTools.tools import logsMsg, sendTheMsgToDingtalk, getInternetIP, getText
+from logTools.tools import sendTheMsgToDingtalk, getInternetIP, getText
 
 text='【%s】' % getInternetIP()
 if lastLinesNum:
@@ -7,11 +7,14 @@ if lastLinesNum:
 else:
     text+='The all logs:\n\n'
 defaultText = text
+# 每秒监听
 text=getText(text,logFileList,step=1)
-
+# 无数据提升至每分钟监听
 if defaultText == text:
-    # text += 'Had not APIs more than ' + str(oneSecondMaxlog) + ' requests per second'
     text = getText(text, logFileList, step=60)
+    
+if defaultText == text:
+    text += 'Had not APIs more than ' + str(oneSecondMaxlog) + ' requests per second or minute'
 
 if isDingtalkMsg:
     sendTheMsgToDingtalk(text=text)
