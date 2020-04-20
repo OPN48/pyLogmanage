@@ -62,4 +62,6 @@ logFileList = list(filter(None, [f if os.path.splitext(f)[1] == fileType else ''
 # other basic config
 headers={'Content-Type': 'application/json'}
 soipUrl = 'http://txt.go.sohu.com/ip/soip'  # 搜狐接口获取本服务器外网IP
+fileNameDelimiter='_'
+delimiter='-_-|||'
 

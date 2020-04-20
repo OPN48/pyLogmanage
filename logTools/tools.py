@@ -119,8 +119,8 @@ def getText(text,logFileList,step=1):
         dic = {}
         for line in l:
             log = logsMsg(line)
-            projectName = f.split('_')[0]
-            timeIpApiStr = str(str(int(log.mktime/step))+ '_' + log.ipList[0] + '_' + projectName + log.api)
+            projectName = f.split(fileNameDelimiter)[0]
+            timeIpApiStr = str(str(int(log.mktime/step))+ delimiter + log.ipList[0] + delimiter + projectName + log.api)
             if timeIpApiStr in dic:
                 # 识别不到api时不加一
                 if log.api != '':
@@ -142,7 +142,7 @@ def getText(text,logFileList,step=1):
         text += '【more than ' + str(count) + '/%ss】:\n\n'% step
         tempList = []
         for s in tempDic[count]:
-            api = s.split('_')[-1]
+            api = s.split(delimiter)[-1]
             if api not in tempList:
                 tempList.append(api)
         text += '\n\n'.join(tempList) + '\n\n'
