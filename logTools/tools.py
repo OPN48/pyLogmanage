@@ -45,8 +45,14 @@ def getInternetIP():
     return lineLookup(r.text,'user_ip="','";')
 
 def sendTheMsgToDingtalk(text):
-    data={'msgtype':'markdown','markdown':{'title': dkeyword, 'text': text}}
-    requests.post(durl, data=json.dumps(data), headers=headers)
+    l=len(text)
+    if l>dingtalkMsgContentCut:
+        for i in range(0, round(l / dingtalkMsgContentCut)):
+            data = {'msgtype': 'markdown', 'markdown': {'title': dkeyword, 'text': text[i * dingtalkMsgContentCut:(i + 1) * dingtalkMsgContentCut]}}
+            requests.post(durl, data=json.dumps(data), headers=headers)
+    else:
+        data = {'msgtype': 'markdown', 'markdown': {'title': dkeyword, 'text': text}}
+        requests.post(durl, data=json.dumps(data), headers=headers)
 
 # 日志分析类，目前支持Nginx日志和Uwsgi日志
 class logsMsg():

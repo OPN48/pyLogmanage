@@ -64,4 +64,5 @@ headers={'Content-Type': 'application/json'}
 soipUrl = 'http://txt.go.sohu.com/ip/soip'  # 搜狐接口获取本服务器外网IP
 fileNameDelimiter='_'
 delimiter='-_-|||'
+dingtalkMsgContentCut=15000
 
