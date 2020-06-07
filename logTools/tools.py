@@ -112,7 +112,7 @@ class logsMsg():
             d=datetime.datetime(**datetimeDic)
             return datetimeStr,d,int(time.mktime(d.timetuple()))
         except:
-            print(logStr)
+            # print(logStr)
             return datetimeStr, datetime.datetime(1970,1,1,8,0,0), 0
 
 

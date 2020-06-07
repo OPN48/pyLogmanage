@@ -7,7 +7,7 @@ modelDic={
     'dkeyword':('k','配置钉钉自定义关键词','logdatatar'),
     'warnsize':('w', '配置单日志文件大小告警值，单位MB','500'),
     # 《网络安全法第二十一条》第三款 采取监测、记录网络运行状态、网络安全事件的技术措施，并按照规定留存相关的网络日志不少于六个月
-    'days':('day','日志删除天数','180'),
+    'days':('day','日志删除天数','190'),
     'nginx':('n','使用nginx配置的服务器可使用','TRUE'),
     'uwsgi':('u','使用uwsgi配置 需要在uwsgi.ini内配置master=true和touch-logreopen=/{log文件夹}/touchforlog','TRUE'),
     'file':('f','日志文件后缀名','.log'),
