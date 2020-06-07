@@ -5,12 +5,9 @@ A python lite log manage open repository, rotate your log files and send the msg
 
 you can use the git command clone this repository in to your logs path:
 ```
-$cd {your log path}
-$git clone --recursive https://github.com/OPN48/pyLogmanage.git
-$mv ./pyLogmanage/* ./ 
-$mv ./pyLogmanage/.git ./.git
-$mv ./pyLogmanage/.gitignore ./.gitignore
-$rm -rf ./pyLogmanage
+cd {your log path}
+
+git clone --recursive https://github.com/OPN48/pyLogmanage.git && mv ./pyLogmanage/* ./ && mv ./pyLogmanage/.git ./.git && mv ./pyLogmanage/.gitignore ./.gitignore && rm -rf ./pyLogmanage
 ```
 If you don't want clone in your logs path, and than you would be change the logFilePath and the logFileList values in  ./logTools/config.py
 ```buildoutcfg
