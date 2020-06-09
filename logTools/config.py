@@ -29,14 +29,14 @@ def getConfigDic(path):
 configDic = getConfigDic(path=configFileName)
 
 def getConfigVaule(key,configDic=configDic):
-    output=configDic[key] if key in configDic else modelDic[key][2]
+    output = configDic[key] if key in configDic else modelDic[key][2]
     if output.upper() in ['FALSE','TRUE']:
         return ['FALSE','TRUE'].index(output.upper())
     else:
         return output
 
 isDingtalkMsg = getConfigVaule('dingtalk')
-durl = getConfigVaule('durl')
+durl = getConfigVaule('durl').strip() # 添加strip防止复制时空格回车干扰
 dkeyword = getConfigVaule('dkeyword') # 在钉钉robot里面设置自定义关键词，保证消息可以到达钉钉
 warnsize = float(getConfigVaule('warnsize'))
 deleteDays = int(getConfigVaule('days'))
