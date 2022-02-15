@@ -44,7 +44,12 @@ if isNginx:
 if isUwsgi:
     uwsgiLogrotate = logFilePath + '/touchforlog'
     os.system('touch ' + uwsgiLogrotate)
+# 增加服务器剩余空间告警
+df = os.popen('df -lh').read().strip().split('\n')
+for l in df:
+    if l[-1] in '/':
+        text += l
 
 # 发送消息给钉钉
 if isDingtalkMsg:
-    sendTheMsgToDingtalk(text=text)
+    sendTheMsgToDingtalk(text = text)
