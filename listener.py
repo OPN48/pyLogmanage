@@ -17,6 +17,6 @@ if defaultText == text:
     
 if defaultText == text:
     text += 'Had not APIs more than ' + str(oneSecondMaxlog) + ' requests per second or minute'
-print(text)
-# if isDingtalkMsg:
-#     sendTheMsgToDingtalk(text=text)
+# print(text)
+if isDingtalkMsg:
+    sendTheMsgToDingtalk(text=text)
