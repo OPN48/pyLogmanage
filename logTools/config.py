@@ -13,7 +13,7 @@ modelDic={
     'file':('f','日志文件后缀名','.log'),
     'lastlines':('l','读取日志文件最后n行提供listener.py判断','10000'),
     'secondmax':('m','1秒钟同时请求大于m条，告警，同时作为报文倍数分组step使用','3'),
-    'withoutlog':('o','配置忽略log文件名使用,分割，demo:c1.log,c2.log','changeDevice.log,vipTime.log,'),
+    'withoutlog':('o','配置忽略log文件名使用,分割，demo:c1.log,c2.log',''),
 }
 configFileName='./.pylogconfig'
 def getConfigDic(path):
