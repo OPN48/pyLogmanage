@@ -1,4 +1,13 @@
 import os
+# # # # # # # # # 其他基础配置 # # # # # # # # #
+# other basic config
+headers={'Content-Type': 'application/json'}
+soipUrl = 'http://txt.go.sohu.com/ip/soip'  # 搜狐接口获取本服务器外网IP
+fileNameDelimiter='_'
+delimiter=' - '
+dingtalkMsgContentCut=15000
+configFileName='./.pylogconfig'
+
 # 配置文件部分
 modelDic={
     # 参数名 :(命令缩写，msg功能描述，默认值)
@@ -15,7 +24,7 @@ modelDic={
     'secondmax':('m','1秒钟同时请求大于m条，告警，同时作为报文倍数分组step使用','3'),
     'withoutlog':('o','配置忽略log文件名使用,分割，demo:c1.log,c2.log',''),
 }
-configFileName='./.pylogconfig'
+
 def getConfigDic(path):
     configDic={}
     if os.path.exists(path):
@@ -60,11 +69,5 @@ if isDingtalkMsg:
 logFilePath = os.getcwd()
 logFileList = list(filter(None, [f if os.path.splitext(f)[1] == fileType else '' for f in os.listdir(logFilePath)]))
 logFileList = list(set(logFileList)-set(withoutLogList))
-# # # # # # # # # 其他基础配置 # # # # # # # # #
-# other basic config
-headers={'Content-Type': 'application/json'}
-soipUrl = 'http://txt.go.sohu.com/ip/soip'  # 搜狐接口获取本服务器外网IP
-fileNameDelimiter='_'
-delimiter=' - '
-dingtalkMsgContentCut=15000
+
 
