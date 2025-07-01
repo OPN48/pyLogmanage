@@ -11,8 +11,9 @@ modelDic={
     'nginx':('n','使用nginx配置的服务器可使用','TRUE'),
     'uwsgi':('u','使用uwsgi配置 需要在uwsgi.ini内配置master=true和touch-logreopen=/{log文件夹}/touchforlog','TRUE'),
     'file':('f','日志文件后缀名','.log'),
-    'lastlines':('l','读取日志文件最后n行提供listener.py判断','1000'),
+    'lastlines':('l','读取日志文件最后n行提供listener.py判断','10000'),
     'secondmax':('m','1秒钟同时请求大于m条，告警，同时作为报文倍数分组step使用','3'),
+    'withoutlog':('o','配置忽略log文件名使用,分割，demo:c1.log,c2.log','changeDevice.log,vipTime.log,'),
 }
 configFileName='./.pylogconfig'
 def getConfigDic(path):
@@ -45,6 +46,7 @@ isUwsgi = getConfigVaule('uwsgi')  #
 fileType = getConfigVaule('file')
 lastLinesNum=int(getConfigVaule('lastlines'))
 oneSecondMaxlog=int(getConfigVaule('secondmax'))
+withoutLogList = getConfigVaule('withoutlog').split(',')
 
 # 检测并安装requests 为钉钉通知提供服务
 if isDingtalkMsg:
@@ -57,12 +59,12 @@ if isDingtalkMsg:
 # 获取当前文件夹作为日志文件夹
 logFilePath = os.getcwd()
 logFileList = list(filter(None, [f if os.path.splitext(f)[1] == fileType else '' for f in os.listdir(logFilePath)]))
-
+logFileList = list(set(logFileList)-set(withoutLogList))
 # # # # # # # # # 其他基础配置 # # # # # # # # #
 # other basic config
 headers={'Content-Type': 'application/json'}
 soipUrl = 'http://txt.go.sohu.com/ip/soip'  # 搜狐接口获取本服务器外网IP
 fileNameDelimiter='_'
-delimiter='-_-|||'
+delimiter=' - '
 dingtalkMsgContentCut=15000
 
