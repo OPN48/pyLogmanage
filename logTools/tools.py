@@ -41,8 +41,32 @@ def lineLookup(s, frontStr, behindStr):
 
 # 获取本机外网IP
 def getInternetIP():
-    r=requests.get(soipUrl,headers=headers)
-    return lineLookup(r.text,'user_ip="','";')
+    """
+        获取服务器的外网IP地址
+        尝试多个公共API，确保稳定性
+        """
+    # 常用的IP查询API列表（返回纯文本IP）
+    ip_apis = [
+        "https://icanhazip.com",
+        "https://ifconfig.me/ip",
+        "https://ident.me"
+    ]
+    for api in ip_apis:
+        try:
+            # 发送GET请求，设置超时时间5秒
+            response = requests.get(api, timeout=5)
+            # 检查响应状态码是否正常（200表示成功）
+            if response.status_code == 200:
+                # 去除返回结果中的换行/空格，得到纯净的IP地址
+                public_ip = response.text.strip()
+                return public_ip
+        except requests.exceptions.RequestException as e:
+            # 单个API失败时，打印提示并尝试下一个
+            print(f"调用API {api} 失败: {e}")
+            continue
+
+    # 所有API都失败时返回None
+    return None
 
 def sendTheMsgToDingtalk(text):
     l=len(text)
