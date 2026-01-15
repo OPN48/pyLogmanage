@@ -3,7 +3,8 @@ from logTools.config import *
 from logTools.tools import getInternetIP, getFileSize, sendTheMsgToDingtalk
 
 # 初始化服务器报文 【x.x.x.x】:
-text = '【%s】：\n\n' % getInternetIP()
+_myIP = getInternetIP()
+text = f'[{_myIP}]0115：\n\n'
 
 # 昨天日期文件名
 today = datetime.date.today()

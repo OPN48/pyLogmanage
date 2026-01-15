@@ -1,7 +1,10 @@
 from logTools.config import *
 from logTools.tools import sendTheMsgToDingtalk, getInternetIP, getText
 
-text = '[ %s ]' % getInternetIP()
+# 初始化服务器报文 【x.x.x.x】:
+_myIP = getInternetIP()
+text = f'[{_myIP}]0115：\n\n'
+
 if lastLinesNum:
     text+='The Last '+str(lastLinesNum)+' lines log:\n\n'
     # print(text)
