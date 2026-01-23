@@ -28,7 +28,7 @@ modelDic={
     'lastlines':('l','读取日志文件最后n行提供listener.py判断','10000'),
     'secondmax':('m','1秒钟同时请求大于m条，告警，同时作为报文倍数分组step使用','3'),
     'withoutlog':('o','配置忽略log文件名使用,分割，demo:c1.log,c2.log',''),
-    'ip': ('ip', '配置本机ip，demo:192.168.1.1', IP_DEFAULT_NAME),
+    'ip': ('ip', '配置本机外网ip，自更新', IP_DEFAULT_NAME)
 }
 
 def getConfigDic(path):

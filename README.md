@@ -31,7 +31,7 @@ $ python3 setup.py
     -l -lastlines    	读取日志文件最后n行提供listener.py判断 默认:1000
     -m -secondmax    	1秒钟同时请求大于m条，告警，同时作为报文倍数分组step使用 默认:3
     -o -withoutlog    	配置忽略log文件名使用,分割，demo:c1.log,c2.log' 默认：''
-
+    -ip -ip     配置本机外网ip，自更新:update
 ```
 setting you dingtalk url:
 ```
