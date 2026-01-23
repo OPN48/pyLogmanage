@@ -55,7 +55,7 @@ def getInternetIP():
 
 def getMsgHeader():
     _myIP = getInternetIP()
-    return f'[{_myIP}]0{VERSION_NAME}：\n\n'
+    return f'【{_myIP}】 {VERSION_NAME}：\n\n'
 
 def sendTheMsgToDingtalk(text):
     l=len(text)
