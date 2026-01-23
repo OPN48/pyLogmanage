@@ -1,11 +1,9 @@
 import datetime
 from logTools.config import *
-from logTools.tools import getMsgHeader, getFileSize, sendTheMsgToDingtalk
-
-
+from logTools.tools import getFileSize, sendTheMsgToDingtalk
 
 # 初始化服务器报文 【x.x.x.x】:
-text = getMsgHeader()
+text = headerText
 
 # 昨天日期文件名
 today = datetime.date.today()

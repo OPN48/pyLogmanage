@@ -9,7 +9,7 @@ headers={'Content-Type': 'application/json'}
 FILENAME_DELIMITER = '_'
 DELIMITER = ' - '
 DINGTALK_MSG_CONTENT_CUT=15000
-CONFIGFILENAME= './.pylogconfig'
+CONFIG_FILENAME= './.pylogconfig'
 LOG_FILE_EXTENSION = '.tar.gz'
 LOG_FILE_PERFIX = 'log-'
 
@@ -28,6 +28,7 @@ modelDic={
     'lastlines':('l','读取日志文件最后n行提供listener.py判断','10000'),
     'secondmax':('m','1秒钟同时请求大于m条，告警，同时作为报文倍数分组step使用','3'),
     'withoutlog':('o','配置忽略log文件名使用,分割，demo:c1.log,c2.log',''),
+    'ip': ('ip', '配置本机ip，demo:192.168.1.1', IP_DEFAULT_NAME),
 }
 
 def getConfigDic(path):
@@ -41,7 +42,7 @@ def getConfigDic(path):
                     configDic[l[0]] = l[1]
         f.close()
     return configDic
-configDic = getConfigDic(path=CONFIGFILENAME)
+configDic = getConfigDic(path=CONFIG_FILENAME)
 
 def getConfigVaule(key,configDic=configDic):
     output = configDic[key] if key in configDic else modelDic[key][2]
@@ -49,6 +50,7 @@ def getConfigVaule(key,configDic=configDic):
         return ['FALSE','TRUE'].index(output.upper())
     else:
         return output
+
 
 isDingtalkMsg = getConfigVaule('dingtalk')
 durl = getConfigVaule('durl').strip() # 添加strip防止复制时空格回车干扰
@@ -61,7 +63,8 @@ fileType = getConfigVaule('file')
 lastLinesNum=int(getConfigVaule('lastlines'))
 oneSecondMaxlog=int(getConfigVaule('secondmax'))
 withoutLogList = getConfigVaule('withoutlog').split(',')
-
+ip = getConfigVaule('ip')
+headerText=f'【{ip}】 {VERSION_NAME}：\n\n'
 # 检测并安装requests 为钉钉通知提供服务
 if isDingtalkMsg:
     try:

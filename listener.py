@@ -1,8 +1,8 @@
 from logTools.config import *
-from logTools.tools import sendTheMsgToDingtalk, getMsgHeader, getText
+from logTools.tools import sendTheMsgToDingtalk, getText
 
 # 初始化服务器报文 【x.x.x.x】:
-text = getMsgHeader()
+text = headerText
 
 if lastLinesNum:
     text+='The Last '+str(lastLinesNum)+' lines log:\n\n'

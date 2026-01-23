@@ -39,23 +39,7 @@ def lineLookup(s, frontStr, behindStr):
         result= s[beginNum:endNum]
     return result
 
-# 获取本机外网IP
-def getInternetIP():
-    for api in IP_APIS:
-        try:
-            response = requests.get(api, timeout=5)
-            if response.status_code == 200:
-                public_ip = response.text.strip()
-                return public_ip
-        except requests.exceptions.RequestException as e:
-            # 单个API失败时，打印提示并尝试下一个
-            print(f"ip API {api} false: {e}")
-            continue
-    return 'ip false'
 
-def getMsgHeader():
-    _myIP = getInternetIP()
-    return f'【{_myIP}】 {VERSION_NAME}：\n\n'
 
 def sendTheMsgToDingtalk(text):
     l=len(text)
