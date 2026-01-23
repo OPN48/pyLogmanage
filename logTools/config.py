@@ -1,11 +1,15 @@
 import os
+VERSION_NAME = 'v1.0.0'
+IP_APIS = ['https://ifconfig.me/ip', 'https://ident.me', 'https://icanhazip.com']
 # # # # # # # # # 其他基础配置 # # # # # # # # #
 # other basic config
 headers={'Content-Type': 'application/json'}
-fileNameDelimiter='_'
-delimiter=' - '
-dingtalkMsgContentCut=15000
-configFileName='./.pylogconfig'
+FILENAME_DELIMITER = '_'
+DELIMITER = ' - '
+DINGTALK_MSG_CONTENT_CUT=15000
+CONFIGFILENAME= './.pylogconfig'
+LOG_FILE_EXTENSION = '.tar.gz'
+LOG_FILE_PERFIX = 'log-'
 
 # 配置文件部分
 modelDic={
@@ -35,7 +39,7 @@ def getConfigDic(path):
                     configDic[l[0]] = l[1]
         f.close()
     return configDic
-configDic = getConfigDic(path=configFileName)
+configDic = getConfigDic(path=CONFIGFILENAME)
 
 def getConfigVaule(key,configDic=configDic):
     output = configDic[key] if key in configDic else modelDic[key][2]
@@ -67,6 +71,7 @@ if isDingtalkMsg:
 # 获取当前文件夹作为日志文件夹
 logFilePath = os.getcwd()
 logFileList = list(filter(None, [f if os.path.splitext(f)[1] == fileType else '' for f in os.listdir(logFilePath)]))
+# -o withoutLog clean
 logFileList = list(set(logFileList)-set(withoutLogList))
 
 

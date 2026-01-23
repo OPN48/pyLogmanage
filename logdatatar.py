@@ -1,16 +1,17 @@
 import datetime
 from logTools.config import *
-from logTools.tools import getInternetIP, getFileSize, sendTheMsgToDingtalk
+from logTools.tools import getMsgHeader, getFileSize, sendTheMsgToDingtalk
+
+
 
 # 初始化服务器报文 【x.x.x.x】:
-_myIP = getInternetIP()
-text = f'[{_myIP}]0115：\n\n'
+text = getMsgHeader()
 
 # 昨天日期文件名
 today = datetime.date.today()
-yesterdayFileName = 'log-' + str(today - datetime.timedelta(days=1)) + '.tar.gz'
+yesterdayFileName = LOG_FILE_PERFIX + str(today - datetime.timedelta(days=1)) + LOG_FILE_EXTENSION
 # 删除日期文件名
-deleteFileName = 'log-' + str(today - datetime.timedelta(days=deleteDays)) + '.tar.gz'
+deleteFileName = LOG_FILE_PERFIX + str(today - datetime.timedelta(days=deleteDays)) + LOG_FILE_EXTENSION
 
 # 获取文件名及文件大小
 for f in logFileList:

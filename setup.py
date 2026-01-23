@@ -1,6 +1,5 @@
 import os
-
-from logTools.config import modelDic, configFileName, isDingtalkMsg, durl
+from logTools.config import modelDic, CONFIGFILENAME, isDingtalkMsg, durl
 from logTools.tools import getSysArgv
 
 safeKeys=modelDic.keys()
@@ -19,8 +18,8 @@ if not inputDic:
     print(helpStr)
 else:
     tempDic = {}
-    if os.path.exists(configFileName):
-        f = open(configFileName, 'r')
+    if os.path.exists(CONFIGFILENAME):
+        f = open(CONFIGFILENAME, 'r')
         for line in f:
             if line.strip():
                 key, value = line.split(' ', 1)
@@ -29,7 +28,7 @@ else:
     print(f'输入配置{inputDic}')
     inputDic=tempDic|inputDic
     print(f'合并后配置{inputDic}')
-    f = open(configFileName, 'w')
+    f = open(CONFIGFILENAME, 'w')
     for key in inputDic:
         if key:
             f.write(key + ' ' + inputDic[key]+'\n')

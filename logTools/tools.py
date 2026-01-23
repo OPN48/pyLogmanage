@@ -41,8 +41,7 @@ def lineLookup(s, frontStr, behindStr):
 
 # 获取本机外网IP
 def getInternetIP():
-    ip_apis = ['https://ifconfig.me/ip','https://ident.me','https://icanhazip.com']
-    for api in ip_apis:
+    for api in IP_APIS:
         try:
             response = requests.get(api, timeout=5)
             if response.status_code == 200:
@@ -54,11 +53,15 @@ def getInternetIP():
             continue
     return 'ip false'
 
+def getMsgHeader():
+    _myIP = getInternetIP()
+    return f'[{_myIP}]0{VERSION_NAME}：\n\n'
+
 def sendTheMsgToDingtalk(text):
     l=len(text)
-    if l>dingtalkMsgContentCut:
-        for i in range(0, round(l / dingtalkMsgContentCut)):
-            data = {'msgtype': 'markdown', 'markdown': {'title': dkeyword, 'text': text[i * dingtalkMsgContentCut:(i + 1) * dingtalkMsgContentCut]}}
+    if l>DINGTALK_MSG_CONTENT_CUT:
+        for i in range(0, round(l / DINGTALK_MSG_CONTENT_CUT)):
+            data = {'msgtype': 'markdown', 'markdown': {'title': dkeyword, 'text': text[i * DINGTALK_MSG_CONTENT_CUT:(i + 1) * DINGTALK_MSG_CONTENT_CUT]}}
             requests.post(durl, data=json.dumps(data), headers=headers)
     else:
         data = {'msgtype': 'markdown', 'markdown': {'title': dkeyword, 'text': text}}
@@ -136,7 +139,7 @@ def getText(text,logFileList,step=1):
         for line in l:
             log = logsMsg(line)
             projectName = f.split(fileNameDelimiter)[0]
-            timeIpApiStr = str(str(int(log.mktime/step))+ delimiter + log.ipList[0] + delimiter + projectName + log.api)
+            timeIpApiStr = str(str(int(log.mktime/step)) + DELIMITER + log.ipList[0] + DELIMITER + projectName + log.api)
 
             if timeIpApiStr in dic:
                 # 识别不到api时不加一
@@ -161,7 +164,7 @@ def getText(text,logFileList,step=1):
         tempList = []
         for s in tempDic[count]:
             # print(s)
-            timeIpApiList = s.split(delimiter)
+            timeIpApiList = s.split(DELIMITER)
             timestamp,ip,api=timeIpApiList
             dt = datetime.datetime.fromtimestamp(int(timestamp)).strftime('%H:%M:%S')
             sStr='%s %s %s'%(dt,ip,api)
