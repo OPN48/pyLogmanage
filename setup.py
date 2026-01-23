@@ -23,8 +23,8 @@ else:
         f = open(configFileName, 'r')
         for line in f:
             if line.strip():
-                key, value = line.strip().split(' ', 1)
-                tempDic[key] = value
+                key, value = line.split(' ', 1)
+                tempDic[key] = value.strip()
     print(f'此前配置{tempDic}')
     print(f'输入配置{inputDic}')
     inputDic=tempDic|inputDic
