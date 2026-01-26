@@ -122,7 +122,7 @@ def getText(text,logFileList,step=1):
         dic = {}
         for line in l:
             log = logsMsg(line)
-            projectName = f.split(fileNameDelimiter)[0]
+            projectName = f.split(FILENAME_DELIMITER)[0]
             timeIpApiStr = str(str(int(log.mktime/step)) + DELIMITER + log.ipList[0] + DELIMITER + projectName + log.api)
 
             if timeIpApiStr in dic:
