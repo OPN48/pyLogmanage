@@ -1,6 +1,6 @@
 import os# 获取本机外网IP
 
-VERSION_NAME = 'v1.0.1'
+VERSION_NAME = 'v1.0.2'
 IP_APIS = ['https://httpbin.org/ip','https://ifconfig.me/ip', 'https://ident.me', 'https://icanhazip.com']
 IP_DEFAULT_NAME = 'update'
 # # # # # # # # # 其他基础配置 # # # # # # # # #
