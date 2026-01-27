@@ -116,7 +116,9 @@ def getText(text,logFileList,step=1):
     # 日志分析
     tempDic = {}
     for f in logFileList:
+        print(f'open({f}, "r")')
         logFile = open(f, 'r')
+
         l = logFile.readlines()[-lastLinesNum:]
         dic = {}
         for line in l:
