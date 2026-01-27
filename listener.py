@@ -11,7 +11,7 @@ else:
     text+='The all logs:\n\n'
 defaultText = text
 # 每秒监听
-
+print(text,logFileList)
 text=getText(text,logFileList,step=1)
 # 无数据提升至每分钟监听
 if defaultText == text:

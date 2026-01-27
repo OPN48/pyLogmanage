@@ -1,5 +1,4 @@
 import re,json,datetime,time,requests
-
 from logTools.config import *
 
 def getSysArgv(keyReplace, safeKeys):
