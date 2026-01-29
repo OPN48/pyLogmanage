@@ -1,5 +1,4 @@
-import re,json,datetime,time
-
+import re,json,datetime,time,requests
 from logTools.config import *
 
 def getSysArgv(keyReplace, safeKeys):
@@ -39,16 +38,13 @@ def lineLookup(s, frontStr, behindStr):
         result= s[beginNum:endNum]
     return result
 
-# 获取本机外网IP
-def getInternetIP():
-    r=requests.get(soipUrl,headers=headers)
-    return lineLookup(r.text,'user_ip="','";')
+
 
 def sendTheMsgToDingtalk(text):
     l=len(text)
-    if l>dingtalkMsgContentCut:
-        for i in range(0, round(l / dingtalkMsgContentCut)):
-            data = {'msgtype': 'markdown', 'markdown': {'title': dkeyword, 'text': text[i * dingtalkMsgContentCut:(i + 1) * dingtalkMsgContentCut]}}
+    if l>DINGTALK_MSG_CONTENT_CUT:
+        for i in range(0, round(l / DINGTALK_MSG_CONTENT_CUT)):
+            data = {'msgtype': 'markdown', 'markdown': {'title': dkeyword, 'text': text[i * DINGTALK_MSG_CONTENT_CUT:(i + 1) * DINGTALK_MSG_CONTENT_CUT]}}
             requests.post(durl, data=json.dumps(data), headers=headers)
     else:
         data = {'msgtype': 'markdown', 'markdown': {'title': dkeyword, 'text': text}}
@@ -88,11 +84,11 @@ class logsMsg():
                 logStr=logStr.replace(m,monthDic[m])
         patternList=[
             # Nginx error log: 2020/02/21 00:20:28 [error]
-            ('\d{4}[-/]\d{1,2}[-/]\d{1,2}\s\d{1,2}:\d{1,2}:\d{1,2}',('year','month','day','hour','minute','second')),
+            (r'\d{4}[-/]\d{1,2}[-/]\d{1,2}\s\d{1,2}:\d{1,2}:\d{1,2}',('year','month','day','hour','minute','second')),
             # Nginx access log:[21/Feb/2020:16:45:28 +0800] 210
-            ('\d{1,2}[-/]\d{1,2}[-/]\d{4}:\d{1,2}:\d{1,2}:\d{1,2}',('day','month','year','hour','minute','second')),
+            (r'\d{1,2}[-/]\d{1,2}[-/]\d{4}:\d{1,2}:\d{1,2}:\d{1,2}',('day','month','year','hour','minute','second')),
             # uWSGI log:Wed Feb 19 06:13:47 2020 or Wed Feb  9 06:13:47 2020
-            ('\d{1,2}\s+\d{1,2}\s\d{1,2}:\d{1,2}:\d{1,2}\s\d{4}',('month','day','hour','minute','second','year'))
+            (r'\d{1,2}\s+\d{1,2}\s\d{1,2}:\d{1,2}:\d{1,2}\s\d{4}',('month','day','hour','minute','second','year'))
         ]
         datetimeStr = 'canNotFindTime'
         datetimeDic = {'error': 'canNotFindTime'}
@@ -112,7 +108,7 @@ class logsMsg():
             d=datetime.datetime(**datetimeDic)
             return datetimeStr,d,int(time.mktime(d.timetuple()))
         except:
-            print(logStr)
+            # print(logStr)
             return datetimeStr, datetime.datetime(1970,1,1,8,0,0), 0
 
 
@@ -120,13 +116,16 @@ def getText(text,logFileList,step=1):
     # 日志分析
     tempDic = {}
     for f in logFileList:
+        # print(f'open({f}, "r")')
         logFile = open(f, 'r')
+
         l = logFile.readlines()[-lastLinesNum:]
         dic = {}
         for line in l:
             log = logsMsg(line)
-            projectName = f.split(fileNameDelimiter)[0]
-            timeIpApiStr = str(str(int(log.mktime/step))+ delimiter + log.ipList[0] + delimiter + projectName + log.api)
+            projectName = f.split(FILENAME_DELIMITER)[0]
+            timeIpApiStr = str(str(int(log.mktime/step)) + DELIMITER + log.ipList[0] + DELIMITER + projectName + log.api)
+
             if timeIpApiStr in dic:
                 # 识别不到api时不加一
                 if log.api != '':
@@ -138,6 +137,7 @@ def getText(text,logFileList,step=1):
         logFile.close()
         for key in dic:
             count = dic[key]
+            # print(key, count)
             if count >= oneSecondMaxlog:
                 stepNum = (count // oneSecondMaxlog) * oneSecondMaxlog
                 if stepNum in tempDic:
@@ -148,8 +148,14 @@ def getText(text,logFileList,step=1):
         text += '【more than ' + str(count) + '/%ss】:\n\n'% step
         tempList = []
         for s in tempDic[count]:
-            api = s.split(delimiter)[-1]
-            if api not in tempList:
-                tempList.append(api)
+            # print(s)
+            timeIpApiList = s.split(DELIMITER)
+            timestamp,ip,api=timeIpApiList
+            dt = datetime.datetime.fromtimestamp(int(timestamp)).strftime('%H:%M:%S')
+            sStr='%s %s %s'%(dt,ip,api)
+            # api = timeIpApiList[-1] #todo
+            # ip = timeIpApiList[-2] #todo
+            if sStr not in tempList:
+                tempList.append(sStr)
         text += '\n\n'.join(tempList) + '\n\n'
     return text
