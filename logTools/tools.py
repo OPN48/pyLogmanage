@@ -45,10 +45,10 @@ def sendTheMsgToDingtalk(text):
     if l>DINGTALK_MSG_CONTENT_CUT:
         for i in range(0, round(l / DINGTALK_MSG_CONTENT_CUT)):
             data = {'msgtype': 'markdown', 'markdown': {'title': dkeyword, 'text': text[i * DINGTALK_MSG_CONTENT_CUT:(i + 1) * DINGTALK_MSG_CONTENT_CUT]}}
-            requests.post(durl, data=json.dumps(data), headers=headers)
+            requests.post(durl, data=json.dumps(data), headers=HEADERS)
     else:
         data = {'msgtype': 'markdown', 'markdown': {'title': dkeyword, 'text': text}}
-        requests.post(durl, data=json.dumps(data), headers=headers)
+        requests.post(durl, data=json.dumps(data), headers=HEADERS)
 
 # 日志分析类，目前支持Nginx日志和Uwsgi日志
 class logsMsg():

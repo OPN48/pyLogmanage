@@ -6,9 +6,9 @@ try:
     text = headerText
     # 昨天日期文件名
     today = datetime.date.today()
-    yesterdayFileName = LOG_FILE_PERFIX + str(today - datetime.timedelta(days=1)) + LOG_FILE_EXTENSION
+    yesterdayFileName = LOG_FILE_PREFIX + str(today - datetime.timedelta(days=1)) + LOG_FILE_EXTENSION
     # 删除日期文件名
-    deleteFileName = LOG_FILE_PERFIX + str(today - datetime.timedelta(days=deleteDays)) + LOG_FILE_EXTENSION
+    deleteFileName = LOG_FILE_PREFIX + str(today - datetime.timedelta(days=deleteDays)) + LOG_FILE_EXTENSION
 
     # 获取文件名及文件大小
     for f in logFileList:
