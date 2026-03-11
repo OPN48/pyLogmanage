@@ -9,7 +9,7 @@ try:
     yesterdayFileName = LOG_FILE_PREFIX + str(today - datetime.timedelta(days=1)) + LOG_FILE_EXTENSION
     # 删除日期文件名
     deleteFileName = LOG_FILE_PREFIX + str(today - datetime.timedelta(days=deleteDays)) + LOG_FILE_EXTENSION
-
+    # print("=====",logFileList)
     # 获取文件名及文件大小
     for f in logFileList:
         fileSize = getFileSize('./' + f)
@@ -51,5 +51,6 @@ try:
 except Exception as e:
     text = e
 # 发送消息给钉钉
+# print(text)
 if isDingtalkMsg:
     sendTheMsgToDingtalk(text=text)

@@ -1,5 +1,5 @@
 import os
-VERSION_NAME = 'v1.0.3'
+VERSION_NAME = 'v1.0.5'
 IP_APIS = ['https://httpbin.org/ip','https://ifconfig.me/ip', 'https://ident.me', 'https://icanhazip.com']
 
 IP = 'ip'
@@ -49,6 +49,7 @@ def getConfigDic(path):
     if os.path.exists(path):
         f = open(path, 'r')
         for line in f:
+            line = line.strip()
             if ' ' in line:
                 l = line.split(' ')
                 if len(l) >= 2:
@@ -75,7 +76,7 @@ isUwsgi = getConfigVaule(UWSGI)  #
 fileType = getConfigVaule(FILE)
 lastLinesNum = int(getConfigVaule(LASTLINES))
 oneSecondMaxlog = int(getConfigVaule(SECONDMAX))
-withoutLogList = getConfigVaule(WITHOUTLOG).split(',')
+withoutLogList = getConfigVaule(WITHOUTLOG).strip().split(',')
 ip = getConfigVaule(IP)
 headerText=f'【{ip}】 {VERSION_NAME}：\n\n'
 # 检测并安装requests 为钉钉通知提供服务
@@ -90,6 +91,8 @@ if isDingtalkMsg:
 logFilePath = os.getcwd()
 logFileList = list(filter(None, [f if os.path.splitext(f)[1] == fileType else '' for f in os.listdir(logFilePath)]))
 # -o withoutLog clean
-logFileList = list(set(logFileList)-set(withoutLogList))
+# print(logFileList)
+needListenerLogFileList = list(set(logFileList)-set(withoutLogList))
+
 
 
